@@ -45,7 +45,9 @@ Simply download or copy the file:
 mini_praw.py
 ```
 
-into your project directory:
+You can access the raw file via the URL https://github.com/cschwem2er/mini-praw/raw/refs/heads/main/mini_praw.py
+
+Next, place it inside your project directory:
 
 ```
 your-project/
@@ -53,7 +55,8 @@ your-project/
 └── your_script.py
 ```
 
-Import it:
+
+Then import it:
 
 ```python
 from mini_praw import Reddit
