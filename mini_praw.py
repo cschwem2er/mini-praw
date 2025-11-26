@@ -504,7 +504,7 @@ class Subreddit:
                     "permalink": info.get("permalink", ""),
                     "url": info.get("url", ""),
                     "created_utc": info.get("created_utc", 0.0),
-                    "created_date": _format_date(link_info.get("created_utc", 0.0)),
+                    "created_date": _format_date(info.get("created_utc", 0.0)),
                     "author": (info.get("author") or None),
                     "score": info.get("score"),
 
