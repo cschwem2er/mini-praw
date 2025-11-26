@@ -18,7 +18,7 @@
 
 ## Why Unauthenticated Scraping?
 
-In **2025**, Reddit introduced the [Responsible Builder Policy](https://www.reddit.com/r/redditdev/comments/1oug31u/introducing_the_responsible_builder_policy_new/) and a new approval process for API access for developers, moderators, and researchers. Self-service creation of new OAuth apps is no longer available; instead, you must submit a support ticket and wait for manual approval.
+In **2025**, Reddit introduced the <a href="[https://example.com](https://www.reddit.com/r/redditdev/comments/1oug31u/introducing_the_responsible_builder_policy_new/)" target="_blank">Responsible Builder Policy</a> and a new approval process for API access for developers, moderators, and researchers. Self-service creation of new OAuth apps is no longer available; instead, you must submit a support ticket and wait for manual approval.
 
 Some developers and researchers have reported concerns such as:
 
