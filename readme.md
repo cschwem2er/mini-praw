@@ -180,7 +180,7 @@ These URLs can then be used to download the corresponding media files, e.g. via 
 ## License (CC0 1.0 Universal)
 
 ```
-mini-praw  by Carsten Schwemmer is released under CC0 1.0 Universal.
+mini-praw by Carsten Schwemmer is released under CC0 1.0 Universal.
 You may use, modify, and distribute this software without restriction.
 ```
 
