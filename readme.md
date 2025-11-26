@@ -76,9 +76,11 @@ reddit = Reddit(
     return_full=False,
 )
 ```
+      
+It is recommended to provide a transparent user-agent string and set a responsible request interval (e.g., the default of 1 second). For experienced users, ```return_full=True``` will cause all data retrievals to include the raw JSON returned by Reddit. Otherwise, only selected metadata will be returned.
 ---
 
-It is recommended to provide a transparent user-agent string and set a responsible request interval (e.g., the default of 1 second). For experienced users, ```return_Full=True``` will cause all data retrievals to include the raw JSON returned by Reddit. Otherwise, only selected metadata will be returned.
+
 
 ## Features
 
