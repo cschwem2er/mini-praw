@@ -69,12 +69,12 @@ No installation, no dependencies, no authentication.
 from mini_praw import Reddit
 
 reddit = Reddit(
-    user_agent="mini-praw-demo/0.1 (by u/yourusername)",
+    user_agent="Carsten Schwemmer - Researcher at University of Munich (LMU)",
     request_interval=1.0,
     return_full=False,
 )
 ```
-
+It is recommended to provide a transparent user agent string and set a responsible request interval (such as the default of 1 second). For experienced users, ```return_Full=True``` will result in all data retrievals to include the raw JSON data returned by Reddit. Otherwise, only selected metadata will be returned.
 ---
 
 ## Features
@@ -87,7 +87,7 @@ for s in subs:
     print(s["name"], s["subscribers"])
 ```
 
-Want full raw JSON?
+If you want full JSON metadata for only selected data, you can use ```full=True``` for single function calls.
 
 ```python
 subs = reddit.search_subreddits("environment", limit=5, full=True)
@@ -111,7 +111,7 @@ for post in sub.top(limit=3, time_filter="week"):
     print("[TOP/week]", post["title"], post["score"])
 ```
 
-Each post is a simple `dict` with keys like:
+Each post is a simple Python `dict` with keys like:
 
 ```python
 {
@@ -135,6 +135,8 @@ Each post is a simple `dict` with keys like:
 
 ### 📝 Fetch a submission + comments
 
+The ``more_limit`` parameter defines how many batches of comments will be retrieved. Setting it to ```None``` will try to extract all available comments. Note that neither this function nor any other component of mini-praw allows data retrieval beyond the rate limits of Reddit (usually a maximum of 1.000 items).
+
 ```python
 submission = reddit.submission(
     id="1p6got5",
@@ -149,16 +151,19 @@ print("Comments:", len(submission["comments"]))
 Comments are returned as a flat list:
 
 ```python
-{
-    "id": "h3k4l9a",
-    "author": "user123",
-    "body": "Comment text...",
-    "created_utc": 1700000000,
-    "ups": 42,
-    "downs": 0,
-    "depth": 2
-}
+{'id': 'nqm9boy',
+ 'author': 'Moustached92',
+ 'body': 'Sounds like and episode of "Love, Death + Robots"',
+ 'created_utc': 1764028089.0,
+ 'ups': 34,
+ 'downs': 0,
+ 'depth': 3,
+ 'parent_fullname': 't1_nqm5e6h',
+ 'parent_id': 'nqm5e6h',
+ 'in_reply_to': 'nqm5e6h',
+ 'is_top_level': False}
 ```
+Hierarchies of comments can be reconstructed using ```parent_id``` and ```in_reply_to```.
 
 ---
 
@@ -172,17 +177,9 @@ Comments are returned as a flat list:
 - `reddit_video`
 - direct media links
 
+These URLs can then be used to download the corresponding media files, e.g. via the Python package ```requests```.
 ---
 
-### 🛑 Safe by default
-
-```python
-reddit = Reddit(request_interval=1.0)
-```
-
-Keeps scraping polite and reduces risk of rate blocking.
-
----
 
 ## License (CC0 1.0 Universal)
 
@@ -197,4 +194,4 @@ Full license text: https://creativecommons.org/publicdomain/zero/1.0/
 
 ## Contributing
 
-Issues, ideas, and PRs welcome!
+Issues, ideas, and PRs are all welcome to improve mini-praw! :)
