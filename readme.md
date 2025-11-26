@@ -18,15 +18,15 @@
 
 ## ❓ Why Unauthenticated Scraping?
 
-In **2025**, Reddit introduced the **Responsible Builder Policy** and a new approval process for API access for developers, moderators, and researchers. Self-service creation of new OAuth apps is no longer available; instead, you must submit a **support ticket** and wait for manual approval.
+In **2025**, Reddit introduced the [Responsible Builder Policy](https://www.reddit.com/r/redditdev/comments/1oug31u/introducing_the_responsible_builder_policy_new/) and a new approval process for API access for developers, moderators, and researchers. Self-service creation of new OAuth apps is no longer available; instead, you must submit a support ticket and wait for manual approval.
 
-In the discussion on this policy, some developers and researchers have reported concerns such as:
+Some developers and researchers have reported concerns such as:
 
 - requests taking a long time to receive a response  
 - requests being denied or apparently “blackholed”  
 - uncertainty about which research or tooling use-cases will be approved  
 
-Because of these new restrictions, **unauthenticated access via public JSON endpoints** has become an important fallback for lightweight, ethical, read-only research tasks, especially when dealing with:
+Because of these new restrictions, unauthenticated access via public JSON endpoints has become an important fallback for lightweight, ethical, read-only research tasks, especially when dealing with:
 
 - Public subreddit data  
 - Non-sensitive comment analysis  
