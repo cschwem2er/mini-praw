@@ -28,7 +28,7 @@ Some developers and researchers have reported concerns such as:
 - requests being denied or apparently “blackholed”  
 - uncertainty about which research or tooling use-cases will be approved  
 
-Because of these new restrictions, unauthenticated access via public JSON endpoints has become an important fallback for lightweight, ethical, read-only tasks.
+Because of these new restrictions, unauthenticated access via public JSON endpoints has unfortunately become an important fallback for lightweight, ethical, read-only tasks.
 
 `mini-praw` exists to support these workflows while remaining simple, transparent, and respectful of Reddit’s servers.
 
