@@ -14,8 +14,6 @@
 
 `mini-praw` is made for educational purposes, academic scraping, content analysis, and small personal tools.
 
----
-
 ## Why Unauthenticated Scraping?
 
 In November 2025, Reddit introduced the 
