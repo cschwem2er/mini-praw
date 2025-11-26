@@ -12,7 +12,7 @@
 - 🛑 Built-in **rate limiting** to avoid hammering Reddit
 - 🧩 Optionally include the **full raw JSON** for any call
 
-`mini-praw` is ideal for learning, exploration, academic scraping, content analysis, and small personal tools — all without needing Reddit OAuth credentials.
+`mini-praw` is made for learning, exploration, academic scraping, content analysis, and small personal tools.
 
 ---
 
@@ -22,9 +22,9 @@ In **2025**, Reddit introduced the **Responsible Builder Policy** and a new appr
 
 In the discussion on this policy, some developers and researchers have reported concerns such as:
 
-- ❌ Requests taking a long time to receive a response  
-- ❌ Requests being denied or apparently “blackholed”  
-- ❌ Uncertainty about which research or tooling use-cases will be approved  
+- requests taking a long time to receive a response  
+- requests being denied or apparently “blackholed”  
+- uncertainty about which research or tooling use-cases will be approved  
 
 Because of these new restrictions, **unauthenticated access via public JSON endpoints** has become an important fallback for lightweight, ethical, read-only research tasks, especially when dealing with:
 
