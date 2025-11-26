@@ -181,9 +181,8 @@ Hierarchies of comments can be reconstructed using ```parent_id``` and ```in_rep
 - `reddit_video`
 - direct media links
 
-These URLs can then be used to download the corresponding media files, e.g. via the Python package ```requests```.
 ---
-
+These URLs can then be used to download the corresponding media files, e.g. via the Python package ```requests```.
 
 ## License (CC0 1.0 Universal)
 
