@@ -1,11 +1,18 @@
 import time
 import requests
 from typing import List, Optional, Generator, Dict, Any
+from datetime import datetime
 
 BASE_URL = "https://www.reddit.com"
 DEFAULT_UA = "mini-praw"
 
-
+def _format_date(ts: float) -> str:
+    """Convert UNIX timestamp → 'YYYY-MM-DD'."""
+    try:
+        return datetime.utcfromtimestamp(ts).strftime("%Y-%m-%d")
+    except Exception:
+        return None
+        
 class RedditHTTPError(Exception):
     """Custom exception for HTTP errors when talking to Reddit."""
 
@@ -213,6 +220,7 @@ class Reddit:
             "permalink": link_info.get("permalink", ""),
             "url": link_info.get("url", ""),
             "created_utc": link_info.get("created_utc", 0.0),
+            "created_date": _format_date(info.get("created_utc", 0.0)),
             "author": (link_info.get("author") or None),
             "score": link_info.get("score"),
 
@@ -319,6 +327,7 @@ def _flatten_comments(
                         "author": (data.get("author") or None),
                         "body": data.get("body", ""),
                         "created_utc": data.get("created_utc", 0.0),
+                        "created_date": _format_date(data.get("created_utc", 0.0)),
                         "ups": data.get("ups"),
                         "downs": data.get("downs"),
                         "depth": depth_inner,
@@ -495,6 +504,7 @@ class Subreddit:
                     "permalink": info.get("permalink", ""),
                     "url": info.get("url", ""),
                     "created_utc": info.get("created_utc", 0.0),
+                    "created_date": _format_date(link_info.get("created_utc", 0.0)),
                     "author": (info.get("author") or None),
                     "score": info.get("score"),
 
