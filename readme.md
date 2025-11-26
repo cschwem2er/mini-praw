@@ -30,7 +30,7 @@ Some developers and researchers have reported concerns such as:
 - requests being denied or apparently “blackholed”  
 - uncertainty about which research or tooling use-cases will be approved  
 
-Because of these new restrictions, unauthenticated access via public JSON endpoints has become an important fallback for lightweight, ethical, read-only research tasks, especially when dealing with:
+Because of these new restrictions, unauthenticated access via public JSON endpoints has become an important fallback for lightweight, ethical, read-only tasks, especially when dealing with:
 
 - Public subreddit data  
 - Non-sensitive comment analysis  
