@@ -63,7 +63,6 @@ from mini_praw import Reddit
 
 No installation, no dependencies, no authentication.
 
----
 
 ## Quick Start
 
@@ -78,7 +77,6 @@ reddit = Reddit(
 ```
       
 It is recommended to provide a transparent user-agent string and set a responsible request interval (e.g., the default of 1 second). For experienced users, ```return_full=True``` will cause all data retrievals to include the raw JSON returned by Reddit. Otherwise, only selected metadata will be returned.
----
 
 
 
@@ -98,8 +96,6 @@ If you want full JSON metadata for only selected data, you can use ```full=True`
 subs = reddit.search_subreddits("environment", limit=5, full=True)
 print(subs[0]["raw"])
 ```
-
----
 
 ### ♨️ Browse subreddit posts
 
@@ -136,8 +132,6 @@ Each post is a simple Python `dict` with keys like:
 }
 ```
 
----
-
 ### 📝 Fetch a submission + comments
 
 The ``more_limit`` parameter defines how many batches of comments will be retrieved. Setting it to ```None``` will try to extract all available comments. Note that neither this function nor any other component of mini-praw allows data retrieval beyond the rate limits of Reddit (usually a maximum of 1.000 items).
@@ -170,8 +164,6 @@ Comments are returned as a flat list:
 ```
 Hierarchies of comments can be reconstructed using ```parent_id``` and ```in_reply_to```.
 
----
-
 ### 🎞️ Media Extraction
 
 `mini-praw` extracts URLs from:
@@ -182,8 +174,10 @@ Hierarchies of comments can be reconstructed using ```parent_id``` and ```in_rep
 - `reddit_video`
 - direct media links
 
----
+
 These URLs can then be used to download the corresponding media files, e.g. via the Python package ```requests```.
+
+---
 
 ## License (CC0 1.0 Universal)
 
