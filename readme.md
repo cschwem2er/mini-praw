@@ -3,14 +3,14 @@
 
 `mini-praw` is a tiny, unauthenticated, read-only Python client for Reddit’s public JSON endpoints, inspired by PRAW but intentionally lightweight and dependency-free.
 
-- 🚫 **No Reddit login, client ID, or secret needed**
-- 📦 **One single file (`mini_praw.py`)**
+- 🚫 No Reddit login, client ID, or secret needed
+- 📦 One single file (`mini_praw.py`)
 - 🔎 Subreddit search
 - ♨️ Subreddit listings: `hot`, `new`, `top`
-- 📝 Submission details + **full comment tree**
-- 🎞️ Extracts **media URLs** (images, videos, galleries)
-- 🛑 Built-in **rate limiting** to avoid hammering Reddit
-- 🧩 Optionally include the **full raw JSON** for any call
+- 📝 Submission details + comment tree
+- 🎞️ Extracts media URLs (images, videos, galleries)
+- 🛑 Built-in rate limiting to avoid hammering Reddit
+- 🧩 Optionally include the full raw JSON for any call
 
 `mini-praw` is made for learning, exploration, academic scraping, content analysis, and small personal tools.
 
