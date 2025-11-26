@@ -12,7 +12,7 @@
 - 🛑 Built-in rate limiting to avoid hammering Reddit
 - 🧩 Optionally include the full raw JSON for any call
 
-`mini-praw` is made for learning, exploration, academic scraping, content analysis, and small personal tools.
+`mini-praw` is made for educational purposes, academic scraping, content analysis, and small personal tools.
 
 ---
 
