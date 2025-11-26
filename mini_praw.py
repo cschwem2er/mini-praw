@@ -261,7 +261,7 @@ class Reddit:
 
 
 # ----------------------------------------------------------------------
-# Internal helpers for comments (returning dicts, not objects)
+# Internal helpers for comments (returning dicts)
 # ----------------------------------------------------------------------
 def _fetch_more_children(
     reddit: Reddit,
@@ -310,7 +310,7 @@ def _flatten_comments(
             kind = child.get("kind")
             data = child.get("data", {})
             if kind == "t1":  # comment
-                parent_fullname = data.get("parent_id")  # e.g. "t3_1p6got5" or "t1_h3k4l9a"
+                parent_fullname = data.get("parent_id") 
                 parent_comment_id = None
                 is_top_level = False
 
