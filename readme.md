@@ -18,7 +18,7 @@
 
 ## Why Unauthenticated Scraping?
 
-In **2025**, Reddit introduced the 
+In November 2025, Reddit introduced the 
 <a href="https://www.reddit.com/r/redditdev/comments/1oug31u/introducing_the_responsible_builder_policy_new/" target="_blank" rel="noopener noreferrer">
 Responsible Builder Policy
 </a>
