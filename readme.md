@@ -1,7 +1,7 @@
 # mini-praw
 
 
-`mini-praw` is a tiny, **unauthenticated**, read-only Python client for Reddit’s public JSON endpoints, inspired by PRAW but intentionally lightweight and dependency-free.
+`mini-praw` is a tiny, unauthenticated, read-only Python client for Reddit’s public JSON endpoints, inspired by PRAW but intentionally lightweight and dependency-free.
 
 - 🚫 **No Reddit login, client ID, or secret needed**
 - 📦 **One single file (`mini_praw.py`)**
