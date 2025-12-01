@@ -1,18 +1,19 @@
-import time
 import requests
-from typing import List, Optional, Generator, Dict, Any
+import time
 from datetime import datetime
 
 BASE_URL = "https://www.reddit.com"
 DEFAULT_UA = "mini-praw"
 
-def _format_date(ts: float) -> str:
+
+def _format_date(ts):
     """Convert UNIX timestamp → 'YYYY-MM-DD'."""
     try:
         return datetime.utcfromtimestamp(ts).strftime("%Y-%m-%d")
     except Exception:
         return None
-        
+
+
 class RedditHTTPError(Exception):
     """Custom exception for HTTP errors when talking to Reddit."""
 
@@ -37,9 +38,9 @@ class Reddit:
 
     def __init__(
         self,
-        user_agent: str = DEFAULT_UA,
-        request_interval: float = 1.0,
-        return_full: bool = False,
+        user_agent=DEFAULT_UA,
+        request_interval=1.0,
+        return_full=False,
     ):
         """
         Parameters
@@ -58,11 +59,11 @@ class Reddit:
         self.session.headers.update({"User-Agent": user_agent})
 
         self.request_interval = float(request_interval)
-        self._last_request_ts: Optional[float] = None
+        self._last_request_ts = None
 
         self.return_full = bool(return_full)
 
-    def _get(self, path: str, params: Optional[dict] = None) -> Dict[str, Any]:
+    def _get(self, path, params=None):
         """
         Internal helper to GET JSON from a Reddit path
         with simple rate limiting.
@@ -90,10 +91,10 @@ class Reddit:
     # ------------------------------------------------------------------
     def search_subreddits(
         self,
-        query: str,
-        limit: Optional[int] = 20,
-        full: Optional[bool] = None,
-    ) -> List[Dict[str, Any]]:
+        query,
+        limit=20,
+        full=None,
+    ):
         """
         Rough equivalent of reddit.subreddits.search(query, limit=limit).
 
@@ -108,15 +109,15 @@ class Reddit:
 
         Returns
         -------
-        List[dict]
+        list of dict
             Each dict has selected fields plus, if full=True, a 'raw' key
             with the original listing 'data' from Reddit.
         """
         if full is None:
             full = self.return_full
 
-        results: List[Dict[str, Any]] = []
-        after: Optional[str] = None
+        results = []
+        after = None
         remaining = limit
 
         while True:
@@ -132,7 +133,7 @@ class Reddit:
 
             for child in children:
                 info = child["data"]
-                sub_dict: Dict[str, Any] = {
+                sub_dict = {
                     "id": info["id"],
                     "name": info["display_name"],
                     "title": info.get("title"),
@@ -159,7 +160,7 @@ class Reddit:
     # ------------------------------------------------------------------
     # (2) Subreddit object (top-level interface only)
     # ------------------------------------------------------------------
-    def subreddit(self, name: str) -> "Subreddit":
+    def subreddit(self, name):
         """
         Return a Subreddit wrapper.
 
@@ -174,10 +175,10 @@ class Reddit:
     # ------------------------------------------------------------------
     def submission(
         self,
-        id: str,
-        more_limit: Optional[int] = None,
-        full: Optional[bool] = None,
-    ) -> Dict[str, Any]:
+        id,
+        more_limit=None,
+        full=None,
+    ):
         """
         Fetch a submission (thread) by its base36 ID and return a dict.
 
@@ -213,7 +214,7 @@ class Reddit:
 
         media_info = _extract_media(link_info)
 
-        submission_dict: Dict[str, Any] = {
+        submission_dict = {
             "id": link_info["id"],
             "title": link_info.get("title", ""),
             "selftext": link_info.get("selftext", ""),
@@ -265,10 +266,10 @@ class Reddit:
 # Internal helpers for comments (returning dicts)
 # ----------------------------------------------------------------------
 def _fetch_more_children(
-    reddit: Reddit,
-    link_id: str,
-    child_ids: List[str],
-) -> List[Dict[str, Any]]:
+    reddit,
+    link_id,
+    child_ids,
+):
     """
     Fetch additional comments for a 'more' object using /api/morechildren.json.
     """
@@ -288,13 +289,13 @@ def _fetch_more_children(
 
 
 def _flatten_comments(
-    reddit: Reddit,
-    children: List[Dict[str, Any]],
-    link_id: str,
-    depth: int = 0,
-    more_limit: Optional[int] = None,
-    full: bool = False,
-) -> List[Dict[str, Any]]:
+    reddit,
+    children,
+    link_id,
+    depth=0,
+    more_limit=None,
+    full=False,
+):
     """
     Convert nested Reddit comment JSON into a flat list of dicts with depth.
 
@@ -302,10 +303,10 @@ def _flatten_comments(
     - For 'more' objects, calls _fetch_more_children().
     - Stops expanding 'more' when `more_limit` is reached (if not None).
     """
-    comments: List[Dict[str, Any]] = []
+    comments = []
     more_used = 0  # how many 'more' objects have been expanded
 
-    def walk(children_inner, depth_inner: int):
+    def walk(children_inner, depth_inner):
         nonlocal more_used
 
         for child in children_inner:
@@ -323,7 +324,7 @@ def _flatten_comments(
                         # parent is the submission itself
                         is_top_level = True
 
-                comment_dict: Dict[str, Any] = {
+                comment_dict = {
                     "id": data["id"],
                     "author": (data.get("author") or None),
                     "body": data.get("body", ""),
@@ -338,7 +339,6 @@ def _flatten_comments(
                     "is_top_level": is_top_level,             # True if reply to submission
                 }
 
-                # NEU: bei full=True rohen Kommentar-JSON anfügen
                 if full:
                     comment_dict["raw"] = data
 
@@ -370,7 +370,7 @@ def _flatten_comments(
 # ----------------------------------------------------------------------
 # Media extraction helper
 # ----------------------------------------------------------------------
-def _extract_media(info: Dict[str, Any]) -> Dict[str, Any]:
+def _extract_media(info):
     """
     Try to extract useful media URLs from a Reddit submission JSON dict.
 
@@ -378,7 +378,7 @@ def _extract_media(info: Dict[str, Any]) -> Dict[str, Any]:
       - media_urls: list of URLs (images/videos)
       - primary_media_url: first URL or None
     """
-    media_urls: List[str] = []
+    media_urls = []
 
     # 1) Simple case: direct link that looks like media
     url = info.get("url") or ""
@@ -421,7 +421,7 @@ def _extract_media(info: Dict[str, Any]) -> Dict[str, Any]:
 
     # Deduplicate while preserving order
     seen = set()
-    deduped: List[str] = []
+    deduped = []
     for u in media_urls:
         if u not in seen:
             seen.add(u)
@@ -463,7 +463,7 @@ class Subreddit:
     Reddit JSON for that submission.
     """
 
-    def __init__(self, reddit: Reddit, name: str):
+    def __init__(self, reddit, name):
         self.reddit = reddit
         self.name = name
 
@@ -479,11 +479,11 @@ class Subreddit:
 
     def _listing(
         self,
-        sort: str = "hot",
-        limit: Optional[int] = 10,
-        time_filter: Optional[str] = None,
-        full: Optional[bool] = None,
-    ) -> Generator[Dict[str, Any], None, None]:
+        sort="hot",
+        limit=10,
+        time_filter=None,
+        full=None,
+    ):
         """
         Generic listing generator for subreddit posts.
         """
@@ -491,11 +491,11 @@ class Subreddit:
             full = self.reddit.return_full
 
         path = f"/r/{self.name}/{sort}.json"
-        after: Optional[str] = None
+        after = None
         remaining = limit
 
         while True:
-            params: Dict[str, Any] = {
+            params = {
                 "limit": min(remaining, 100) if remaining is not None else 100,
             }
             if after:
@@ -513,7 +513,7 @@ class Subreddit:
 
                 media_info = _extract_media(info)
 
-                submission_dict: Dict[str, Any] = {
+                submission_dict = {
                     "id": info["id"],
                     "title": info.get("title", ""),
                     "selftext": info.get("selftext", ""),
@@ -556,26 +556,26 @@ class Subreddit:
     # public methods mimic PRAW names, but yield dicts
     def hot(
         self,
-        limit: Optional[int] = 10,
-        full: Optional[bool] = None,
-    ) -> Generator[Dict[str, Any], None, None]:
+        limit=10,
+        full=None,
+    ):
         """Return submissions from /r/{name}/hot as dicts."""
         return self._listing("hot", limit=limit, full=full)
 
     def new(
         self,
-        limit: Optional[int] = 10,
-        full: Optional[bool] = None,
-    ) -> Generator[Dict[str, Any], None, None]:
+        limit=10,
+        full=None,
+    ):
         """Return submissions from /r/{name}/new as dicts."""
         return self._listing("new", limit=limit, full=full)
 
     def top(
         self,
-        limit: Optional[int] = 10,
-        time_filter: str = "day",
-        full: Optional[bool] = None,
-    ) -> Generator[Dict[str, Any], None, None]:
+        limit=10,
+        time_filter="day",
+        full=None,
+    ):
         """
         Return submissions from /r/{name}/top with an optional time_filter.
         time_filter ∈ {"hour","day","week","month","year","all"}.
