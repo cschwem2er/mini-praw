@@ -249,6 +249,7 @@ class Reddit:
             children=comments_listing,
             link_id=link_fullname,
             more_limit=more_limit,
+            full=full,
         )
         submission_dict["comments"] = comments_flat
 
@@ -292,6 +293,7 @@ def _flatten_comments(
     link_id: str,
     depth: int = 0,
     more_limit: Optional[int] = None,
+    full: bool = False,
 ) -> List[Dict[str, Any]]:
     """
     Convert nested Reddit comment JSON into a flat list of dicts with depth.
@@ -310,7 +312,7 @@ def _flatten_comments(
             kind = child.get("kind")
             data = child.get("data", {})
             if kind == "t1":  # comment
-                parent_fullname = data.get("parent_id") 
+                parent_fullname = data.get("parent_id")
                 parent_comment_id = None
                 is_top_level = False
 
@@ -321,22 +323,26 @@ def _flatten_comments(
                         # parent is the submission itself
                         is_top_level = True
 
-                comments.append(
-                    {
-                        "id": data["id"],
-                        "author": (data.get("author") or None),
-                        "body": data.get("body", ""),
-                        "created_utc": data.get("created_utc", 0.0),
-                        "created_date": _format_date(data.get("created_utc", 0.0)),
-                        "ups": data.get("ups"),
-                        "downs": data.get("downs"),
-                        "depth": depth_inner,
-                        "parent_fullname": parent_fullname,       # raw Reddit parent_id
-                        "parent_id": parent_comment_id,           # comment id or None
-                        "in_reply_to": parent_comment_id,         # alias for convenience
-                        "is_top_level": is_top_level,             # True if reply to submission
-                    }
-                )
+                comment_dict: Dict[str, Any] = {
+                    "id": data["id"],
+                    "author": (data.get("author") or None),
+                    "body": data.get("body", ""),
+                    "created_utc": data.get("created_utc", 0.0),
+                    "created_date": _format_date(data.get("created_utc", 0.0)),
+                    "ups": data.get("ups"),
+                    "downs": data.get("downs"),
+                    "depth": depth_inner,
+                    "parent_fullname": parent_fullname,       # raw Reddit parent_id
+                    "parent_id": parent_comment_id,           # comment id or None
+                    "in_reply_to": parent_comment_id,         # alias for convenience
+                    "is_top_level": is_top_level,             # True if reply to submission
+                }
+
+                # NEU: bei full=True rohen Kommentar-JSON anfügen
+                if full:
+                    comment_dict["raw"] = data
+
+                comments.append(comment_dict)
 
                 replies = data.get("replies")
                 if isinstance(replies, dict) and replies.get("data"):
