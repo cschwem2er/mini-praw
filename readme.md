@@ -94,7 +94,7 @@ subs = reddit.search_subreddits("environment", limit=5, full=True)
 print(subs[0]["raw"])
 ```
 
-### ♨️ Browse subreddit posts
+### ♨️ Browse subreddit submissions ( = posts)
 
 ```python
 sub = reddit.subreddit("environment")
