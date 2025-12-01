@@ -161,7 +161,7 @@ Comments are returned as a flat list:
 ```
 Hierarchies of comments can be reconstructed using ```parent_id``` and ```in_reply_to```.
 
-### Working with generators (loops and `list()`)
+### Working with generators
 
 By design, some functions in `mini-praw` return **generators** instead of lists.  
 This is more memory-efficient for larger scrapes, but it can be confusing if you are new to Python.
