@@ -467,6 +467,16 @@ class Subreddit:
         self.reddit = reddit
         self.name = name
 
+    def __iter__(self):
+        """
+        Allow to iterate over a Subreddit object directly.
+        Default behavior: same as .hot()
+        
+        Example:
+            list(reddit.subreddit("environment"))
+        """
+        return self.hot()
+
     def _listing(
         self,
         sort: str = "hot",
