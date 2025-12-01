@@ -161,6 +161,31 @@ Comments are returned as a flat list:
 ```
 Hierarchies of comments can be reconstructed using ```parent_id``` and ```in_reply_to```.
 
+### Working with generators (loops and `list()`)
+
+By design, some functions in `mini-praw` return **generators** instead of lists.  
+This is more memory-efficient for larger scrapes, but it can be confusing if you are new to Python.
+
+For example, the following calls do *not* return a list directly:
+
+- `reddit.subreddit("environment")` → returns a `Subreddit` object
+- `reddit.subreddit("environment").hot(limit=...)` → returns a generator of posts
+
+To actually use the posts, you have two common options:
+
+1. Iterate in a loop (recommended)
+```python
+for post in reddit.subreddit("environment").hot(limit=3):
+    print(post["title"], post["ups"])
+```
+
+2. Convert the generator to a list
+```python
+posts = list(reddit.subreddit("environment").hot(limit=3))
+print(len(posts))          # number of posts
+print(posts[0]["title"])   # first post
+```
+
 ### 🎞️ Media Extraction
 
 `mini-praw` extracts URLs from:
