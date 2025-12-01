@@ -220,7 +220,7 @@ class Reddit:
             "permalink": link_info.get("permalink", ""),
             "url": link_info.get("url", ""),
             "created_utc": link_info.get("created_utc", 0.0),
-            "created_date": _format_date(info.get("created_utc", 0.0)),
+            "created_date": _format_date(link_info.get("created_utc", 0.0)),
             "author": (link_info.get("author") or None),
             "score": link_info.get("score"),
 
