@@ -68,13 +68,13 @@ No installation, no dependencies, no authentication.
 from mini_praw import Reddit
 
 reddit = Reddit(
-    user_agent="Carsten Schwemmer - Researcher at University of Munich (LMU)",
-    request_interval=1.0,
-    return_full=False,
+    user_agent = "Carsten Schwemmer - Researcher at University of Munich (LMU)",
+    request_interval = 1.0,
+    return_full = False
 )
 ```
   
-It is recommended to provide a transparent user-agent string and set a responsible request interval (e.g., the default of 1 second). For experienced users, ```return_full=True``` will cause all data retrievals to include the raw JSON returned by Reddit. Otherwise, only selected metadata will be returned.
+It is recommended to provide a transparent user-agent string and set a responsible request interval (e.g., the default of 1 second). For experienced users, ```return_full = True``` will cause all data retrievals to include the raw JSON returned by Reddit. Otherwise, only selected metadata will be returned.
 
 
 ## Features
@@ -82,7 +82,7 @@ It is recommended to provide a transparent user-agent string and set a responsib
 ### 🔎 Search for subreddits
 
 ```python
-subs = reddit.search_subreddits("environment", limit=5)
+subs = reddit.search_subreddits("environment", limit = 5)
 for s in subs:
     print(s["name"], s["subscribers"])
 ```
@@ -90,22 +90,22 @@ for s in subs:
 If you want full JSON metadata for only selected data, you can use ```full=True``` for single function calls.
 
 ```python
-subs = reddit.search_subreddits("environment", limit=5, full=True)
+subs = reddit.search_subreddits("environment", limit = 5, full = True)
 print(subs[0]["raw"])
 ```
 
-### ♨️ Browse subreddit submissions ( = posts)
+### ♨️ Browse subreddit submissions (= posts)
 
 ```python
 sub = reddit.subreddit("environment")
 
-for post in sub.hot(limit=3):
+for post in sub.hot(limit = 3):
     print("[HOT]", post["title"], post["ups"])
 
-for post in sub.new(limit=3):
+for post in sub.new(limit = 3):
     print("[NEW]", post["title"])
 
-for post in sub.top(limit=3, time_filter="week"):
+for post in sub.top(limit = 3, time_filter = "week"):
     print("[TOP/week]", post["title"], post["score"])
 ```
 
@@ -135,9 +135,9 @@ The ``more_limit`` parameter defines how many batches of comments will be retrie
 
 ```python
 submission = reddit.submission(
-    id="1p6got5",
-    more_limit=10,
-    full=True
+    id = "1p6got5",
+    more_limit = 10,
+    full = True
 )
 
 print(submission["title"])
