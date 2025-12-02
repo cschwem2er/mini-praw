@@ -208,7 +208,7 @@ class Reddit:
             full = self.return_full
 
         # /comments/{id}.json returns [link_listing, comments_listing]
-        raw = self._get(f"/comments/submission_id}.json", params={"limit": 500})
+        raw = self._get(f"/comments/{submission_id}.json", params={"limit": 500})
         link_info = raw[0]["data"]["children"][0]["data"]
         comments_listing = raw[1]["data"]["children"]
 
